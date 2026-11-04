@@ -155,6 +155,24 @@ git push origin master
 > Service Plan e o banco MySQL. No Web App, em Deployment Center, aparece o deploy
 > que acabou de ser feito pela pipeline, com o horário de agora."
 
+**Se o Portal do Azure estiver fora do ar na hora da gravação:** mostre a página
+de erro do Portal e a página https://azure.status.microsoft e diga:
+
+> "O Portal do Azure está fora do ar neste momento, então vou mostrar os mesmos
+> recursos pela Azure CLI, que consulta a mesma API do Portal."
+
+No terminal da IDE (com a Azure CLI instalada e `az login` feito antes de gravar):
+
+```bash
+az resource list --resource-group rg-ollipet-rm562917 --output table
+az webapp show --resource-group rg-ollipet-rm562917 --name ollipet-api-rm562917 --query "{estado:state, host:defaultHostName, ultimaAlteracao:lastModifiedTimeUtc}" --output table
+az webapp log deployment list --resource-group rg-ollipet-rm562917 --name ollipet-api-rm562917 --query "[0].{ultimoDeploy:end_time, origem:deployer, concluido:complete}" --output table
+```
+
+> "Aqui estão os três recursos do Resource Group, o Web App rodando, e o último
+> deploy: origem VSTS, que é o Azure DevOps, concluído agora — é o deploy que a
+> pipeline acabou de fazer."
+
 ## Cena 8 — Aplicação com a alteração + CRUD com SELECT no banco (~4-5 min)
 
 | | |
