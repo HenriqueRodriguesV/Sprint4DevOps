@@ -1,0 +1,27 @@
+$ az resource list --resource-group rg-ollipet-rm562917 -o table
+Name                    Location       Type                                  Status
+----------------------  -------------  ------------------------------------  ---------
+mysql-ollipet-rm562917  mexicocentral  Microsoft.DBforMySQL/flexibleServers  Succeeded
+plan-ollipet-rm562917   mexicocentral  Microsoft.Web/serverFarms             Succeeded
+ollipet-api-rm562917    mexicocentral  Microsoft.Web/sites                   Succeeded
+
+$ az mysql flexible-server show -g rg-ollipet-rm562917 -n mysql-ollipet-rm562917
+Estado    Versao    Sku            Tier       Host
+--------  --------  -------------  ---------  -----------------------------------------------
+Ready     8.0.21    Standard_B1ms  Burstable  mysql-ollipet-rm562917.mysql.database.azure.com
+
+$ az webapp show -g rg-ollipet-rm562917 -n ollipet-api-rm562917
+{
+  "estado": "Running",
+  "host": "ollipet-api-rm562917.azurewebsites.net",
+  "plano": ".../serverfarms/plan-ollipet-rm562917",
+  "runtime": "JAVA|21-java21"
+}
+
+$ az webapp config appsettings list (valores omitidos)
+SPRING_PROFILES_ACTIVE
+SERVER_PORT
+WEBSITES_PORT
+DATABASE_URL
+DATASOURCE_USERNAME
+DATASOURCE_PASSWORD

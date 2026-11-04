@@ -1,0 +1,5 @@
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0  ChallengeClyvoApplicationTests
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0  model.StatusConsultaTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0  model.VacinaTest
+Tests run: 11, Failures: 0, Errors: 0, Skipped: 0  service.AvaliadorDeTriagemTest
+Tests run: 9, Failures: 0, Errors: 0, Skipped: 0  service.PlanoDeDosesTest

@@ -1,0 +1,55 @@
+$ POST https://ollipet-api-rm562917.azurewebsites.net/api/v1/auth/login  (maria.silva@email.com)
+HTTP 200 - token: eyJhbGciOiJIUzI1NiJ9...
+
+$ POST /api/v1/pets   (CREATE)
+{
+  "id": 5,
+  "nome": "Bolinha",
+  "descricao": "Vira-lata resgatado, muito brincalhao",
+  "raca": "Vira-lata",
+  "especie": "CAO",
+  "dataNascimento": "2024-02-10",
+  "idade": 2,
+  "responsavelId": 3,
+  "nomeResponsavel": "Maria Silva"
+}
+HTTP 201
+
+$ GET /api/v1/pets/5   (READ)
+{
+  "id": 5,
+  "nome": "Bolinha",
+  "descricao": "Vira-lata resgatado, muito brincalhao",
+  "raca": "Vira-lata",
+  "especie": "CAO",
+  "dataNascimento": "2024-02-10",
+  "idade": 2,
+  "responsavelId": 3,
+  "nomeResponsavel": "Maria Silva"
+}
+HTTP 200
+
+$ PUT /api/v1/pets/5   (UPDATE)
+{
+  "id": 5,
+  "nome": "Bolinha Castrado",
+  "descricao": "Castrado em 11/2026",
+  "raca": "Vira-lata",
+  "especie": "CAO",
+  "dataNascimento": "2024-02-10",
+  "idade": 2,
+  "responsavelId": 3,
+  "nomeResponsavel": "Maria Silva"
+}
+HTTP 200
+
+$ GET /api/v1/pets/meus   (pets da tutora, lidos do MySQL da Azure)
+  id=5   Bolinha Castrado   Vira-lata          id_resp=3
+  id=2   Nina               Siames             id_resp=3
+  id=1   Thor               Golden Retriever   id_resp=3
+
+$ DELETE /api/v1/pets/5   (DELETE)
+HTTP 204
+
+$ GET /api/v1/pets/5   (confirma remocao)
+HTTP 404
