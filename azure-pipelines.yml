@@ -12,13 +12,11 @@
 # Nada e manual: o unico gatilho e o push na branch master.
 # =============================================================================
 
-# Regra II: o CI dispara a cada alteracao na branch master (main incluida para
-# o caso de o repositorio usar main como branch padrao).
+# Regra II: o CI dispara a cada alteracao na branch master.
 trigger:
   branches:
     include:
       - master
-      - main
 
 pr: none
 

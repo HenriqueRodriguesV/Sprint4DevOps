@@ -41,7 +41,7 @@ Olli Pet. Nesta sprint a API passou a ser compilada, testada e publicada
 | 5. Professor convidado com acesso Basic | Felipe Cavalcante Vilella de Oliveira (pf2128@fiap.com.br), Contributor, Basic |
 | 6. Pipelines CI/CD (YAML) | [`azure-pipelines.yml`](azure-pipelines.yml) — [Seção 4.3](#43-criar-a-pipeline) |
 | I. Conectada ao repositório | GitHub `HenriqueRodriguesV/Sprint4DevOps` |
-| II. CI dispara a cada alteração na branch master | `trigger: master` (e `main`) |
+| II. CI dispara a cada alteração na branch master | `trigger: master` |
 | III. CD dispara após novo artefato | stage Deploy com `dependsOn: Build` |
 | IV. Variáveis sensíveis protegidas | Variable Group `ollipet-cloud` (secret) |
 | V. Artefato publicado no Azure DevOps | `PublishPipelineArtifact@1` → artefato `drop` |

@@ -390,7 +390,7 @@ Started ChallengeClyvoApplication in 7.706 seconds
     s.append(bloco_codigo("""
 trigger:
   branches:
-    include: [ master, main ]  # todo push na master dispara a pipeline
+    include: [ master ]        # todo push na master dispara a pipeline
 
 stages:
   - stage: Build               # CI
