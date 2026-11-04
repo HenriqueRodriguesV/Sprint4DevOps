@@ -1,86 +1,98 @@
 # Roteiro do vídeo — Sprint 4 (DevOps Tools & Cloud Computing) — Turma 2TDSA
 
-Duração sugerida: 10 a 15 min. Grave em **720p ou mais**, **narrando com a voz** (sem
-legenda) e **sem cortes a partir da Cena 3** (alteração → CI/CD → CRUD).
-Publique no YouTube como **Não listado** e cole o link no README e no PDF.
+Cada cena segue o **"Fluxo do vídeo"** do enunciado, na mesma ordem. Em cada uma:
+**Mostrar** = o que fica na tela (onde clicar); **Falar** = texto pronto para ler.
+A coluna "Enunciado" indica o item avaliado e o desconto se faltar.
 
-## Links que precisam estar abertos (uma aba cada) ANTES de gravar
+Regras do enunciado para o vídeo: **720p ou mais, áudio claro, sem legenda,
+explicação por voz**, ferramentas abertas e prontas antes de gravar.
+**Não corte do início da Cena 4 até o fim da Cena 8** (alteração → CI/CD → CRUD).
 
-| Aba | Endereço |
-|---|---|
-| 1. Projeto no Azure DevOps | https://dev.azure.com/ollipetnoite/Sprint%204%20%E2%80%93%20Azure%20DevOps |
-| 2. Pipelines | https://dev.azure.com/ollipetnoite/Sprint%204%20%E2%80%93%20Azure%20DevOps/_build |
-| 3. Library (Variable Group) | https://dev.azure.com/ollipetnoite/Sprint%204%20%E2%80%93%20Azure%20DevOps/_library |
-| 4. Portal - Resource Group | https://portal.azure.com/#browse/resourcegroups → `rg-ollipet-rm562917` |
-| 5. Swagger publicado | https://ollipet-api-rm562917.azurewebsites.net/swagger-ui.html |
-| 6. GitHub | https://github.com/HenriqueRodriguesV/Sprint4DevOps |
-
-Além disso: **IDE** (IntelliJ ou VS Code) com o repositório clonado e um **terminal
-MySQL** conectado no banco em nuvem (passo abaixo).
-
-### Preparar o terminal MySQL (fazer uma vez, antes de gravar)
-
-1. Libere o IP do seu computador no firewall do MySQL. No Portal:
-   `mysql-ollipet-rm562917` → **Networking** → **+ Add current client IP address** → **Save**.
-2. Conecte (MySQL Workbench ou terminal):
-
-   ```bash
-   mysql -h mysql-ollipet-rm562917.mysql.database.azure.com -u ollipetadmin -p --ssl-mode=REQUIRED ollipet
-   ```
-
-   Senha: a mesma da variável secret `DATASOURCE_PASSWORD` (o Henrique tem).
-3. Teste com `SELECT id_pet, nome, raca, id_resp FROM pet;` — deve listar Thor, Nina e Bud.
-
-### Ensaiar o login no Swagger (antes de gravar)
-
-No Swagger publicado: `POST /api/v1/auth/login` → **Try it out** →
-
-```json
-{ "email": "maria.silva@email.com", "senha": "123456" }
-```
-
-Copie o `token`, clique em **Authorize** (cadeado no topo) e cole o token.
+Abas abertas antes de gravar (nesta ordem): IDE com o projeto · Azure DevOps (projeto)
+· Pipelines · Library · Portal (Resource Group) · Swagger · MySQL Workbench conectado ·
+GitHub · README (seção 2, diagrama).
 
 ---
 
 ## Cena 1 — Apresentação e ferramentas (~1 min)
 
-Diga nome, RM e turma (2TDSA). Passe rapidamente por cada aba e diga o que é:
-IDE com o projeto, GitHub, Azure DevOps (projeto **Sprint 4 – Azure DevOps**),
-Portal da Azure (Resource Group com MySQL, App Service Plan e Web App) e o terminal
-MySQL conectado no banco em nuvem.
+| | |
+|---|---|
+| **Enunciado** | "Mostre as ferramentas usadas (IDE, Azure DevOps, Banco de Dados, Portal do Azure etc.)" |
+| **Mostrar** | Passe por cada aba, parando 3 a 5 segundos em cada: IDE → GitHub → Azure DevOps → Portal → MySQL Workbench → Swagger |
 
-> *"Esse é o projeto Olli Pet, uma API Spring Boot. Vou mostrar o deploy
-> automatizado com Azure DevOps: o código aqui na IDE, o projeto no Azure DevOps,
-> os recursos na Azure e o banco MySQL em nuvem que a API usa."*
+**Falar:**
+> "Olá, somos do time Olli Pet, turma 2TDSA. Eu sou [nome], RM [número]. Este é o
+> vídeo da Sprint 4 de DevOps Tools and Cloud Computing. Vou mostrar as ferramentas
+> que usamos: aqui no [IntelliJ/VS Code] está o código da nossa API em Java com Spring
+> Boot; aqui o repositório no GitHub, na branch master; aqui o Azure DevOps, onde
+> ficam o projeto, o Boards e a pipeline de CI/CD; aqui o Portal do Azure com os
+> recursos: o Web App onde a API roda e o banco Azure Database for MySQL; aqui o MySQL
+> Workbench conectado nesse banco em nuvem; e aqui o Swagger da API publicada na Azure."
 
-## Cena 2 — Configuração do projeto e da pipeline (~2 min)
+## Cena 2 — Solução, arquitetura e banco (~1,5 min)
 
-1. **Project Settings → Overview**: projeto privado, Git, Scrum. Mostre em
-   **Project Settings → Permissions → Contributors** o professor convidado.
-2. **Boards → Work items**: os itens da sprint.
-3. **Pipelines → a pipeline → Edit** (mostra o `azure-pipelines.yml`):
-   - `trigger: master` → todo push na master dispara;
-   - stage **Build**: `Maven@4` (compila + testes JUnit), `PublishPipelineArtifact@1` (artefato);
-   - stage **Deploy**: `dependsOn: Build` → só começa com o artefato pronto;
-     `AzureWebApp@1` → publica no Web App.
-4. **Library → ollipet-cloud**: as 3 variáveis do banco com **cadeado (secret)**.
+| | |
+|---|---|
+| **Enunciado** | "É obrigatório a explicação pelo aluno sobre os itens a serem entregues": 1. Descrição da solução (-10), 2. Diagrama (até 20 pts), 3. Banco em nuvem (-40 se não permitido) |
+| **Mostrar** | README no GitHub: seção **1. Descrição da solução** → seção **2. Arquitetura e fluxo CI/CD** (diagrama) → seção **3. Banco de dados em nuvem** |
 
-> *"As credenciais do banco ficam aqui no Variable Group, como secret. Não aparecem
-> no código nem nos logs."*
+**Falar:**
+> "A Olli Pet é uma API REST para uma clínica veterinária: triagem de urgência por
+> questionário, agendamento de consultas, carteira de vacinação e acompanhamento de
+> tratamento. A stack é Java 21, Spring Boot, Spring Security, JPA, Flyway e Maven.
+>
+> Neste diagrama está a arquitetura e o fluxo de CI/CD, numerado: [aponte cada
+> número] 1, o desenvolvedor faz push na master do GitHub; 2, isso dispara a pipeline
+> no Azure DevOps; 3 e 4, o CI compila, roda os testes e publica o artefato; 5, o
+> artefato dispara o CD; 6, o CD faz o deploy no Azure Web App; 7, a API conecta no
+> banco MySQL da Azure. As credenciais vêm do Variable Group protegido. E o usuário
+> final acessa a API pelo Swagger ou pelo aplicativo.
+>
+> O banco de dados é em nuvem: Azure Database for MySQL Flexible Server, um serviço
+> PaaS. O schema é criado pelo Flyway, com as migrations versionadas no projeto."
 
-## Cena 3 — Alterar o CÓDIGO e fazer push (~1 min) — A PARTIR DAQUI, SEM CORTES
+## Cena 3 — Projeto no Azure DevOps e configuração da pipeline (~2 min)
 
-A alteração tem que ser em **código** (o enunciado desconta 20 pontos se for só no
-README). No IDE, abra
-`src/main/java/org/fiap/challenge_clyvo/controller/PetController.java` e altere a
-linha 29:
+| | |
+|---|---|
+| **Enunciado** | 4. Configuração do projeto (zero se não configurar) · 5. Professor com acesso Basic (zero sem acesso) · "Apresente a configuração da pipeline (cada jobs/tasks)" · IV. Variáveis protegidas (-15) |
+| **Mostrar** | 1) **Project settings** (engrenagem no canto inferior esquerdo) → Overview: nome, descrição, Private, Git, Scrum · 2) **Project settings → Permissions → Contributors → Members**: o professor · 3) **Boards → Work items** · 4) **Pipelines** → a pipeline → **Edit**: role o YAML de cima a baixo · 5) **Pipelines → Library → ollipet-cloud**: as 3 variáveis com cadeado |
+
+**Falar:**
+> "Este é o projeto no Azure DevOps: o nome é 'Sprint 4 – Azure DevOps', a descrição
+> tem o nome do professor e os integrantes com RM e turma, a visibilidade é privada,
+> o versionamento é Git e o processo é Scrum. Em Permissions, o professor Felipe
+> está como membro do projeto com acesso Basic. Aqui no Boards estão os itens da
+> sprint.
+>
+> Agora a pipeline, feita em YAML. O trigger é a branch master: qualquer alteração
+> nela dispara a pipeline sozinha. Ela tem dois stages. O primeiro é o CI: a task
+> Maven roda o 'mvn clean package', que compila o projeto e executa os testes
+> automatizados, e publica o resultado dos testes; a task CopyFiles copia o jar
+> gerado; e a PublishPipelineArtifact publica esse jar como artefato no Azure DevOps.
+> O segundo stage é o CD: ele tem 'dependsOn Build', então só começa quando o
+> artefato existe; ele baixa o artefato e a task AzureWebApp faz o deploy no Web
+> App, aplicando as configurações do banco.
+>
+> Os dados sensíveis, que são a URL, o usuário e a senha do banco, ficam aqui na
+> Library, no Variable Group 'ollipet-cloud', todos com o cadeado, ou seja, como
+> secret. Eles não aparecem no código nem nos logs."
+
+## Cena 4 — Alterar o código e fazer push (~1 min) — A PARTIR DAQUI, SEM CORTES
+
+| | |
+|---|---|
+| **Enunciado** | "Altere algo no código... fácil de visualizar" · Alteração em README ao invés de código: -20 |
+| **Mostrar** | Primeiro o **Swagger** com o grupo **Pets** dizendo "Cadastro de pets". Depois, na IDE, abra `src/main/java/org/fiap/challenge_clyvo/controller/PetController.java`, linha 29 |
+
+Troque:
 
 ```java
 @Tag(name = "Pets", description = "Cadastro de pets")
 ```
 
-para
+por:
 
 ```java
 @Tag(name = "Pets", description = "Cadastro de pets - alterado ao vivo na Sprint 4")
@@ -90,77 +102,122 @@ No terminal da IDE:
 
 ```bash
 git add src/main/java/org/fiap/challenge_clyvo/controller/PetController.java
-git commit -m "Altera descricao do cadastro de pets para o video da Sprint 4"
+git commit -m "Altera descricao do cadastro de pets"
 git push origin master
 ```
 
-> *"Mudei a descrição do grupo Pets no controller, que aparece no Swagger. Commit e
-> push na master."*
+**Falar:**
+> "Hoje, no Swagger publicado, o grupo Pets mostra a descrição 'Cadastro de pets'.
+> Vou alterar isso no código Java, aqui no PetController, para 'Cadastro de pets -
+> alterado ao vivo na Sprint 4'. Agora faço o commit e o push na branch master."
 
-## Cena 4 — Disparo automático e execução do CI/CD (~4-6 min)
+## Cena 5 — Disparo automático e explicação do CI/CD durante a execução (~4-6 min)
 
-Volte em **Pipelines**: um run novo aparece sozinho (motivo **Individual CI**,
-com a mensagem do seu commit). **Não clique em Run manual.**
+| | |
+|---|---|
+| **Enunciado** | "Mostre o início automático da pipeline após o commit" (-30 se não disparar) · "Explique cada etapa do CI/CD durante a execução — abra os detalhes" (-20) |
+| **Mostrar** | Aba **Pipelines**: o run novo aparece sozinho (não clique em Run). Abra o run → clique no stage **CI - Build, testes e artefato** → clique em cada step conforme ele roda. Quando o CI acabar, volte e abra o stage **CD - Deploy no Azure Web App** |
 
-- Abra o run → stage **CI - Build, testes e artefato** → abra cada step e explique:
-  checkout, `mvn clean package` compilando e rodando os testes, cópia do `.jar`,
-  publicação do artefato.
-- Aba **Tests** do run: os 30 testes aprovados.
-- Quando o Build terminar, mostre o stage **CD - Deploy no Azure Web App**
-  começando sozinho e o step `Aplicar App Settings e publicar o .jar`.
+**Falar (vá falando enquanto roda):**
+> "Olha aqui: assim que eu fiz o push, a pipeline começou sozinha. O motivo aparece
+> como 'Individual CI' e a mensagem é o meu commit. Vou abrir os detalhes.
+>
+> No stage de CI: o 'Initialize job' prepara o agente; o 'Checkout' baixa o código
+> da master do GitHub; agora o 'mvn clean package' está compilando e — aqui nos logs
+> — rodando os testes automatizados; o 'Copiar o jar' separa o arquivo gerado; e o
+> 'Publicar artefato' envia o jar para o Azure DevOps.
+>
+> O CI terminou e repare que o CD começou sozinho, porque ele depende do artefato.
+> No CD: o 'Download Artifact' baixa o jar publicado pelo CI, e o 'Aplicar App
+> Settings e publicar o .jar' faz o deploy no Azure Web App, usando as credenciais
+> protegidas do Variable Group."
 
-> *"O Deploy começou sozinho porque depende do artefato do Build. Esse step está
-> publicando o jar no Web App."*
+## Cena 6 — Artefato e resultados dos testes (~1 min)
 
-## Cena 5 — Artefato e recursos no Portal (~1 min)
+| | |
+|---|---|
+| **Enunciado** | "Mostre o artefato criado e os resultados dos testes" · sem artefato: -20 · sem testes: -20 |
+| **Mostrar** | No resumo do run: aba **Tests** (30 aprovados) → volte ao resumo e clique em **1 published** → abra o artefato **drop** e mostre o `.jar` |
 
-- No run: **1 published** → artefato `drop` → o `.jar`.
-- No Portal: `ollipet-api-rm562917` → **Deployment Center** → o deploy que acabou
-  de acontecer (horário de agora).
+**Falar:**
+> "Aqui na aba Tests estão os resultados: 30 testes automatizados, todos aprovados.
+> E aqui o artefato publicado pelo CI, chamado 'drop', com o jar da aplicação."
 
-## Cena 6 — Alteração no ar + CRUD com SELECT no banco (~4-5 min)
+## Cena 7 — Recursos atualizados no Portal do Azure (~1 min)
 
-1. Atualize o **Swagger publicado**: o grupo **Pets** agora mostra a descrição
-   **"Cadastro de pets - alterado ao vivo na Sprint 4"** (prova de que o deploy
-   automático funcionou com a alteração no código).
-2. Faça o login (`POST /api/v1/auth/login`) e o **Authorize**.
-3. CRUD, sempre com o `SELECT` no terminal MySQL logo depois:
+| | |
+|---|---|
+| **Enunciado** | "Demonstre no Portal do Azure os recursos atualizados pelo deploy" (-10) · Deploy em Web App (-30 se não) |
+| **Mostrar** | Portal → Resource Group **rg-ollipet-rm562917** (os 3 recursos) → clique em **ollipet-api-rm562917** → menu **Deployment Center** → aba **Logs**: o deploy de agora |
 
-| Passo | No Swagger | No MySQL |
+**Falar:**
+> "No Portal do Azure, este é o Resource Group do projeto, com o Web App, o App
+> Service Plan e o banco MySQL. No Web App, em Deployment Center, aparece o deploy
+> que acabou de ser feito pela pipeline, com o horário de agora."
+
+## Cena 8 — Aplicação com a alteração + CRUD com SELECT no banco (~4-5 min)
+
+| | |
+|---|---|
+| **Enunciado** | "Não demonstrar a execução do App com a alteração": -30 · "Acesse a aplicação no Web App e execute o CRUD completo, mostrando no banco cada operação" · evidência por SELECT: -30 se faltar |
+| **Mostrar** | Recarregue o **Swagger** (F5) e mostre o grupo Pets com o texto novo. Depois deixe o Swagger e o MySQL Workbench lado a lado (ou alterne) |
+
+1. **Login:** `POST /api/v1/auth/login` → **Try it out** →
+   `{ "email": "maria.silva@email.com", "senha": "123456" }` → **Execute** → copie o
+   `token` → botão **Authorize** (topo) → cole → **Authorize** → **Close**.
+2. **CRUD**, sempre com o SELECT logo depois:
+
+| Operação | No Swagger | SELECT no Workbench |
 |---|---|---|
-| **Create** | `POST /api/v1/pets` com o JSON abaixo → **201** | `SELECT id_pet, nome, raca, id_resp FROM pet ORDER BY id_pet DESC LIMIT 1;` |
-| **Read** | `GET /api/v1/pets/{id}` → **200** | (mesmo SELECT) |
-| **Update** | `PUT /api/v1/pets/{id}` com o JSON abaixo → **200** | `SELECT id_pet, nome, descricao FROM pet WHERE id_pet = {id};` |
-| **Delete** | `DELETE /api/v1/pets/{id}` → **204** | `SELECT COUNT(*) FROM pet WHERE id_pet = {id};` → **0** |
+| Inserir | `POST /api/v1/pets` com o JSON abaixo → **201** (anote o `id`) | `SELECT id_pet, nome, raca, id_resp FROM pet ORDER BY id_pet DESC LIMIT 1;` |
+| Consultar | `GET /api/v1/pets/{id}` → **200** | o mesmo SELECT |
+| Atualizar | `PUT /api/v1/pets/{id}` com o JSON abaixo → **200** | `SELECT id_pet, nome, descricao FROM pet WHERE id_pet = {id};` |
+| Deletar | `DELETE /api/v1/pets/{id}` → **204** | `SELECT COUNT(*) FROM pet WHERE id_pet = {id};` (resultado 0) |
 
-Create:
+Inserir:
 
 ```json
-{ "nome": "Bolinha", "descricao": "Vira-lata resgatado, muito brincalhao", "raca": "Vira-lata", "especie": "CAO", "dataNascimento": "2024-02-10" }
+{ "nome": "Bolinha", "descricao": "Vira-lata resgatado", "raca": "Vira-lata", "especie": "CAO", "dataNascimento": "2024-02-10" }
 ```
 
-Update:
+Atualizar:
 
 ```json
 { "nome": "Bolinha Castrado", "descricao": "Castrado em 11/2026", "raca": "Vira-lata", "especie": "CAO", "dataNascimento": "2024-02-10" }
 ```
 
-## Cena 7 — Encerramento (~30 s)
+**Falar:**
+> "Recarregando o Swagger da aplicação publicada na Azure, o grupo Pets já mostra o
+> texto novo: a alteração no código chegou em produção sozinha, pela pipeline.
+>
+> Agora o CRUD completo na tabela pet, que se relaciona com a tabela de responsável
+> pela coluna id_resp. Primeiro faço o login e autorizo o token.
+> Inserir: crio o pet Bolinha, retornou 201 com o id [x]. No banco, o SELECT mostra o
+> registro novo, ligado à responsável 3.
+> Consultar: o GET do id [x] retorna os mesmos dados que estão no banco.
+> Atualizar: mudo o nome para Bolinha Castrado, retornou 200, e o SELECT mostra o
+> nome e a descrição alterados.
+> Deletar: o DELETE retornou 204, e o SELECT confirma que o registro não existe mais."
 
-> *"Recapitulando: alteramos o código, o push disparou o CI sozinho, os testes
-> rodaram, o artefato foi publicado, o deploy no Web App aconteceu automaticamente
-> e o CRUD está gravando no MySQL da Azure."*
+## Cena 9 — Encerramento (~30 s)
+
+**Falar:**
+> "Resumindo: alteramos o código, o push na master disparou o CI sozinho, os testes
+> rodaram e o artefato foi publicado, o CD fez o deploy automático no Azure Web App,
+> e a aplicação com a alteração está gravando no MySQL em nuvem. Obrigado!"
 
 ---
 
-## Checklist antes de publicar o vídeo
+## Checklist final (descontos do enunciado)
 
-- [ ] 720p ou mais, narração com voz, sem legenda
-- [ ] Sem cortes da Cena 3 em diante
-- [ ] Run nasceu do push (Individual CI), não manual
-- [ ] Mostrou e explicou cada etapa do Build e do Deploy
-- [ ] Mostrou os testes (aba Tests) e o artefato `drop`
-- [ ] Mostrou o Web App atualizado no Portal
-- [ ] Mostrou a descrição nova do grupo Pets no Swagger publicado
-- [ ] CRUD completo com SELECT depois de cada operação
-- [ ] YouTube "Não listado"; link colado no README e no PDF
+- [ ] 720p+, voz clara, sem legenda (-30)
+- [ ] Explicou descrição, diagrama e banco (Cena 2)
+- [ ] Mostrou projeto, professor Basic, pipeline (cada task) e Library com cadeado (Cena 3)
+- [ ] Alteração em **código Java**, não README (-20)
+- [ ] Pipeline disparou sozinha pelo push na master (-30)
+- [ ] Explicou cada etapa do CI e do CD durante a execução (-20)
+- [ ] Mostrou testes e artefato (-20 cada)
+- [ ] Mostrou os recursos no Portal (-10)
+- [ ] Mostrou a alteração rodando na aplicação (-30)
+- [ ] CRUD completo com SELECT após cada operação (-30)
+- [ ] YouTube **Não listado** e link enviado para o PDF de entrega
