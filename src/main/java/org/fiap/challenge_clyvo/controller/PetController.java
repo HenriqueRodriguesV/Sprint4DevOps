@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Tag(name = "Pets", description = "Cadastro de pets")
+@Tag(name = "Pet", description = "Cadastro de pets")
 @RestController
 @RequestMapping("/api/v1/pets")
 public class PetController {
