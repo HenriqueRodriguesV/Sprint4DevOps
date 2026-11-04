@@ -10,6 +10,7 @@ print que ainda nao existir aparece como uma caixa "PRINT PENDENTE" com o nome
 do arquivo esperado, para que nada seja esquecido antes da entrega.
 """
 
+import sys
 from pathlib import Path
 
 from reportlab.lib import colors
@@ -50,7 +51,11 @@ EQUIPE = [
 ]
 REPOSITORIO = "https://github.com/HenriqueRodriguesV/Sprint4DevOps"
 API_URL = "https://ollipet-api-rm562917.azurewebsites.net/swagger-ui.html"
-VIDEO = "ADICIONAR LINK DO YOUTUBE"
+VIDEO = ""  # cole aqui o link do YouTube (nao listado) e gere o PDF de novo
+
+# Com "--pendencias", prints ainda nao salvos aparecem como caixas vermelhas;
+# sem a opcao (padrao), o PDF sai limpo, so com o que ja existe.
+MOSTRAR_PENDENCIAS = "--pendencias" in sys.argv
 PROJETO_DEVOPS = "dev.azure.com/ollipetnoite - Sprint 4 - Azure DevOps (privado, Git, Scrum)"
 
 # Arquivo esperado em docs/prints/ -> legenda
@@ -166,6 +171,8 @@ def evidencia(nome):
     texto = PRINTS[nome]
     if caminho.exists():
         return KeepTogether([imagem(caminho, altura_max=12 * cm), p(texto, legenda)])
+    if not MOSTRAR_PENDENCIAS:
+        return Spacer(1, 0)
     caixa = Table([[Paragraph(
         f"<b>PRINT PENDENTE</b><br/>{texto}<br/><font name='{FM}' size='8'>salvar como docs/prints/{nome}</font>",
         ParagraphStyle("pend", parent=celula, alignment=TA_CENTER, textColor=colors.HexColor("#9c2b2b")))]],
@@ -211,8 +218,8 @@ def montar():
         ("API em produção (Azure)", f"<link href='{API_URL}' color='#2a6ad1'>{API_URL}</link>"),
         ("Projeto Azure DevOps", PROJETO_DEVOPS),
         ("Pipeline", "azure-pipelines.yml — CI (Build + testes + artefato) e CD (deploy) automáticos"),
-        ("Banco de dados", "Azure Database for MySQL Flexible Server 8.0 (schema ollipet)"),
-        ("Vídeo de apresentação", VIDEO),
+        ("Banco de dados", "Azure Database for MySQL Flexible Server 8.0.21 - Mexico Central (schema ollipet)"),
+    ] + ([("Vídeo de apresentação", f"<link href='{VIDEO}' color='#2a6ad1'>{VIDEO}</link>")] if VIDEO else []) + [
     ], [LARGURA * 0.32, LARGURA * 0.68], cabecalho=False))
     s.append(PageBreak())
 
@@ -443,7 +450,8 @@ SELECT COUNT(*) FROM pet WHERE id_pet = {id};
     s.append(p(f"Repositório público com o código da API, a pipeline, os scripts de provisionamento, o DDL e o README "
                f"com o passo a passo de execução e deploy: <link href='{REPOSITORIO}' color='#2a6ad1'>{REPOSITORIO}</link>"))
     s.append(p("10. Vídeo de demonstração", h1))
-    s.append(p(f"{VIDEO} — mostra a alteração no código, o push, o disparo automático do CI/CD com cada etapa "
+    s.append(p((f"<link href='{VIDEO}' color='#2a6ad1'>{VIDEO}</link> — " if VIDEO else "")
+               + "O vídeo mostra a alteração no código, o push, o disparo automático do CI/CD com cada etapa "
                "explicada, o artefato, o deploy no Portal e o CRUD com SELECT no banco após cada operação."))
     return s
 

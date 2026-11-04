@@ -8,8 +8,9 @@ python docs/gerar_pdf.py
 ```
 
 O script encaixa cada imagem na seção certa de `docs/Sprint4-DevOps-OlliPet.pdf`.
-Print que faltar aparece no PDF como caixa vermelha "PRINT PENDENTE", então só
-entregue quando o script disser que não há pendências.
+Print que ainda não existe é simplesmente omitido (o PDF já traz as saídas reais
+dos comandos). Para conferir o que falta, rode `python docs/gerar_pdf.py --pendencias`:
+cada print ausente aparece como uma caixa vermelha com o nome do arquivo.
 
 | Arquivo | O que mostrar |
 |---|---|
@@ -31,5 +32,5 @@ entregue quando o script disser que não há pendências.
 | `16-crud-update.png` | PUT `/api/v1/pets/{id}` (200) + `SELECT` com o campo alterado |
 | `17-crud-delete.png` | DELETE `/api/v1/pets/{id}` (204) + `SELECT` sem o registro |
 
-Também troque `VIDEO = "ADICIONAR LINK DO YOUTUBE"` no topo de `docs/gerar_pdf.py`
-pelo link do vídeo antes de gerar a versão final.
+Para incluir o vídeo, preencha `VIDEO = ""` no topo de `docs/gerar_pdf.py` com o
+link do YouTube e gere o PDF de novo.
