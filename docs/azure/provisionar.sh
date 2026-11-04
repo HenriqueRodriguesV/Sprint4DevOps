@@ -105,6 +105,13 @@ az webapp create \
   --query "{nome:name, host:defaultHostName, estado:state}" \
   --output table
 
+# Always On: o Web App nao "dorme" sem trafego (evita a primeira chamada lenta).
+az webapp config set \
+  --name "$WEBAPP_NAME" \
+  --resource-group "$RESOURCE_GROUP_NAME" \
+  --always-on true \
+  --output none
+
 az webapp config appsettings set \
   --name "$WEBAPP_NAME" \
   --resource-group "$RESOURCE_GROUP_NAME" \
