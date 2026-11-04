@@ -1,7 +1,7 @@
-$ az devops project show -p "Sprint 4 - Azure DevOps"
+$ az devops project show -p "Sprint 4 – Azure DevOps"
 Nome                     Visibilidade    Processo    Versionamento
 -----------------------  --------------  ----------  ---------------
-Sprint 4 - Azure DevOps  private         Scrum       Git
+Sprint 4 – Azure DevOps  private         Scrum       Git
 
 $ az devops user show --user pf2128@fiap.com.br
 Nome                                   Email                            Acesso

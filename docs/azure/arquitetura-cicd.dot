@@ -10,10 +10,10 @@ digraph G {
   dev [label="Desenvolvedor\n(equipe Olli Pet)", shape=ellipse, fillcolor="#fff2cc", color="#bf9000"];
 
   subgraph cluster_gh { label="GitHub"; style="rounded"; color="#333333";
-    repo [label="Repositorio\nSprint4DevOps\n(branch main)", fillcolor="#eeeeee"];
+    repo [label="Repositorio\nSprint4DevOps\n(branch master)", fillcolor="#eeeeee"];
   }
 
-  subgraph cluster_ado { label="Azure DevOps - projeto \"Sprint 4 - Azure DevOps\""; style="rounded"; color="#0078d4"; fontcolor="#0078d4";
+  subgraph cluster_ado { label="Azure DevOps - projeto \"Sprint 4 – Azure DevOps\""; style="rounded"; color="#0078d4"; fontcolor="#0078d4";
     ci   [label="CI - stage Build\nMaven@4: mvn clean package\n(compila + testes JUnit)", fillcolor="#dbe9f9"];
     tst  [label="Resultados dos testes\n(aba Tests do run)", fillcolor="#dbe9f9"];
     art  [label="Artefato \"drop\"\n(.jar da API)", fillcolor="#dbe9f9"];
@@ -28,7 +28,7 @@ digraph G {
 
   user [label="Usuario\n(Swagger / app mobile)", shape=ellipse, fillcolor="#fff2cc", color="#bf9000"];
 
-  dev  -> repo [label="1. git push main"];
+  dev  -> repo [label="1. git push master"];
   repo -> ci   [label="2. trigger\nautomatico", color="#0078d4", fontcolor="#0078d4"];
   ci   -> tst  [label="3. publica", color="#0078d4", fontcolor="#0078d4"];
   ci   -> art  [label="4. publica", color="#0078d4", fontcolor="#0078d4"];

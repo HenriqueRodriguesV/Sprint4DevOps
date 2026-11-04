@@ -12,7 +12,9 @@ Olli Pet. Nesta sprint a API passou a ser compilada, testada e publicada
 | **Repositório** | https://github.com/HenriqueRodriguesV/Sprint4DevOps |
 | **API publicada (Swagger)** | https://ollipet-api-rm562917.azurewebsites.net/swagger-ui.html |
 | **Vídeo da Sprint 4** | _adicionar o link do YouTube (não listado)_ |
-| **Documentação (PDF)** | [`docs/Sprint4-DevOps-OlliPet.pdf`](docs/Sprint4-DevOps-OlliPet.pdf) |
+| **Projeto no Azure DevOps** | https://dev.azure.com/ollipetnoite/Sprint%204%20%E2%80%93%20Azure%20DevOps |
+| **PDF de entrega** | [`docs/entrega/Entrega-Sprint4-DevOps-2TDSA.pdf`](docs/entrega/Entrega-Sprint4-DevOps-2TDSA.pdf) (nomes, RMs, turma e links) |
+| **Documentação técnica (PDF)** | [`docs/Sprint4-DevOps-OlliPet.pdf`](docs/Sprint4-DevOps-OlliPet.pdf) (evidências detalhadas) |
 | **Repositório Java** | https://github.com/GabyBonfim/java-ollipet |
 | **Repositório Mobile** | https://github.com/FIAP-MOBILE/clyvo-challenge-ollipet |
 
@@ -25,6 +27,28 @@ Olli Pet. Nesta sprint a API passou a ser compilada, testada e publicada
 | Henrique Rodrigues Vespasiano | RM562917 |
 | Mirelly Sousa Alves | RM566299 |
 | Ruan Luca Feliciano | RM562218 |
+
+---
+
+## Requisitos do enunciado (Sprint 4 — DevOps Tools & Cloud Computing)
+
+| Requisito | Onde está |
+|---|---|
+| 1. Descrição da solução e stack | [Seção 1](#1-descrição-da-solução) e [Tecnologias](#tecnologias) |
+| 2. Diagrama da arquitetura + fluxo CI/CD (componentes, ordem numerada, personas, onde cada ferramenta atua) | [Seção 2](#2-arquitetura-e-fluxo-cicd) |
+| 3. Banco de dados em nuvem (PaaS) | Azure Database for MySQL Flexible Server — [Seção 3](#3-banco-de-dados-em-nuvem) |
+| 4. Projeto no Azure DevOps (nome, descrição com professor e integrantes, privado, Git, Scrum) | [Seção 4.2](#42-configurar-o-projeto-no-azure-devops) |
+| 5. Professor convidado com acesso Basic | Felipe Cavalcante Vilella de Oliveira (pf2128@fiap.com.br), Contributor, Basic |
+| 6. Pipelines CI/CD (YAML) | [`azure-pipelines.yml`](azure-pipelines.yml) — [Seção 4.3](#43-criar-a-pipeline) |
+| I. Conectada ao repositório | GitHub `HenriqueRodriguesV/Sprint4DevOps` |
+| II. CI dispara a cada alteração na branch master | `trigger: master` (e `main`) |
+| III. CD dispara após novo artefato | stage Deploy com `dependsOn: Build` |
+| IV. Variáveis sensíveis protegidas | Variable Group `ollipet-cloud` (secret) |
+| V. Artefato publicado no Azure DevOps | `PublishPipelineArtifact@1` → artefato `drop` |
+| VI. Testes no CI | `Maven@4` com 30 testes JUnit publicados na aba Tests |
+| VII. Deploy em Azure Web App | `AzureWebApp@1` → `ollipet-api-rm562917` |
+| 8. Vídeo | Roteiro em [`docs/azure/ROTEIRO_VIDEO.md`](docs/azure/ROTEIRO_VIDEO.md) |
+| PDF de entrega | [`docs/entrega/Entrega-Sprint4-DevOps-2TDSA.pdf`](docs/entrega/Entrega-Sprint4-DevOps-2TDSA.pdf) |
 
 ---
 
@@ -54,7 +78,7 @@ o percentual real de doses confirmadas em vez de depender do relato do tutor.
 
 ![Arquitetura e fluxo CI/CD](docs/azure/arquitetura-cicd.png)
 
-1. O desenvolvedor faz `git push` na branch `main` do GitHub.
+1. O desenvolvedor faz `git push` na branch `master` do GitHub.
 2. O push dispara automaticamente a pipeline no Azure DevOps.
 3. **CI (stage Build):** `mvn clean package` compila o projeto e roda os testes JUnit;
    os resultados aparecem na aba **Tests** do run.
@@ -71,7 +95,7 @@ O fonte do diagrama está em [`docs/azure/arquitetura-cicd.dot`](docs/azure/arqu
 | Componente | Nome do recurso | Tipo | Descrição funcional | Tecnologia |
 |---|---|---|---|---|
 | Repositório | `HenriqueRodriguesV/Sprint4DevOps` | Repositório Git | Código-fonte, pipeline e scripts | GitHub |
-| Projeto DevOps | `Sprint 4 - Azure DevOps` | Projeto Azure DevOps (privado, Git, Scrum) | Boards, pipeline, Library e environments | Azure DevOps |
+| Projeto DevOps | `Sprint 4 – Azure DevOps` | Projeto Azure DevOps (privado, Git, Scrum) | Boards, pipeline, Library e environments | Azure DevOps |
 | Pipeline | `azure-pipelines.yml` | Pipeline YAML multi-stage | CI (build + testes + artefato) e CD (deploy) | Azure Pipelines |
 | Variable Group | `ollipet-cloud` | Library | Guarda `DATABASE_URL`, `DATASOURCE_USERNAME` e `DATASOURCE_PASSWORD` como secret | Azure Pipelines Library |
 | Service Connection | `sc-ollipet-azure` | Azure Resource Manager | Autoriza a pipeline a publicar na assinatura | Azure DevOps |
@@ -129,11 +153,21 @@ O script pode ser executado de novo sem problema: o MySQL só é criado se ainda
 ### 4.2 Configurar o projeto no Azure DevOps
 
 Configuração usada nesta entrega: organização **`ollipetnoite`**, projeto
-**[Sprint 4 - Azure DevOps](https://dev.azure.com/ollipetnoite/Sprint%204%20-%20Azure%20DevOps)**.
+**[Sprint 4 – Azure DevOps](https://dev.azure.com/ollipetnoite/Sprint%204%20%E2%80%93%20Azure%20DevOps)**.
 O professor Felipe Oliveira (`pf2128@fiap.com.br`) foi convidado como **Contributor**,
 com nível de acesso **Basic**.
 
-1. Em https://dev.azure.com crie o projeto **`Sprint 4 - Azure DevOps`**:
+1. Em https://dev.azure.com crie o projeto **`Sprint 4 – Azure DevOps`**:
+   - Description:
+     ```text
+     Projeto para entrega da Sprint 4 do professor Felipe Cavalcante Vilella de Oliveira
+     Integrantes do grupo:
+     RM563112 - Andre Rosa Colombo - 2TDSA
+     RM566242 - Gabriely Bonfim Silva - 2TDSA
+     RM562917 - Henrique Rodrigues Vespasiano - 2TDSA
+     RM566299 - Mirelly Sousa Alves - 2TDSA
+     RM562218 - Ruan Luca Feliciano - 2TDSA
+     ```
    - Visibility: **Private**;
    - Version control: **Git**;
    - Work item process: **Scrum**.
@@ -161,7 +195,7 @@ com nível de acesso **Basic**.
 **Pipelines → New pipeline → GitHub → `Sprint4DevOps` → Existing Azure Pipelines YAML
 file → `/azure-pipelines.yml` → Run.**
 
-A partir daí, **todo push na `main` dispara o CI/CD sozinho**. Nenhum passo é manual.
+A partir daí, **todo push na `master` dispara o CI/CD sozinho**. Nenhum passo é manual.
 
 | Stage | O que faz |
 |---|---|

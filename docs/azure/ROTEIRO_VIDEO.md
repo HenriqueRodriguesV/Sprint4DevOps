@@ -8,9 +8,9 @@ Publique no YouTube como **Não listado** e cole o link no README e no PDF.
 
 | Aba | Endereço |
 |---|---|
-| 1. Projeto no Azure DevOps | https://dev.azure.com/ollipetnoite/Sprint%204%20-%20Azure%20DevOps |
-| 2. Pipelines | https://dev.azure.com/ollipetnoite/Sprint%204%20-%20Azure%20DevOps/_build |
-| 3. Library (Variable Group) | https://dev.azure.com/ollipetnoite/Sprint%204%20-%20Azure%20DevOps/_library |
+| 1. Projeto no Azure DevOps | https://dev.azure.com/ollipetnoite/Sprint%204%20%E2%80%93%20Azure%20DevOps |
+| 2. Pipelines | https://dev.azure.com/ollipetnoite/Sprint%204%20%E2%80%93%20Azure%20DevOps/_build |
+| 3. Library (Variable Group) | https://dev.azure.com/ollipetnoite/Sprint%204%20%E2%80%93%20Azure%20DevOps/_library |
 | 4. Portal - Resource Group | https://portal.azure.com/#browse/resourcegroups → `rg-ollipet-rm562917` |
 | 5. Swagger publicado | https://ollipet-api-rm562917.azurewebsites.net/swagger-ui.html |
 | 6. GitHub | https://github.com/HenriqueRodriguesV/Sprint4DevOps |
@@ -46,7 +46,7 @@ Copie o `token`, clique em **Authorize** (cadeado no topo) e cole o token.
 ## Cena 1 — Apresentação e ferramentas (~1 min)
 
 Diga nome, RM e turma (2TDSA). Passe rapidamente por cada aba e diga o que é:
-IDE com o projeto, GitHub, Azure DevOps (projeto **Sprint 4 - Azure DevOps**),
+IDE com o projeto, GitHub, Azure DevOps (projeto **Sprint 4 – Azure DevOps**),
 Portal da Azure (Resource Group com MySQL, App Service Plan e Web App) e o terminal
 MySQL conectado no banco em nuvem.
 
@@ -60,7 +60,7 @@ MySQL conectado no banco em nuvem.
    **Project Settings → Permissions → Contributors** o professor convidado.
 2. **Boards → Work items**: os itens da sprint.
 3. **Pipelines → a pipeline → Edit** (mostra o `azure-pipelines.yml`):
-   - `trigger: main` → todo push na main dispara;
+   - `trigger: master` → todo push na master dispara;
    - stage **Build**: `Maven@4` (compila + testes JUnit), `PublishPipelineArtifact@1` (artefato);
    - stage **Deploy**: `dependsOn: Build` → só começa com o artefato pronto;
      `AzureWebApp@1` → publica no Web App.
@@ -69,29 +69,33 @@ MySQL conectado no banco em nuvem.
 > *"As credenciais do banco ficam aqui no Variable Group, como secret. Não aparecem
 > no código nem nos logs."*
 
-## Cena 3 — Alterar o código e fazer push (~1 min) — A PARTIR DAQUI, SEM CORTES
+## Cena 3 — Alterar o CÓDIGO e fazer push (~1 min) — A PARTIR DAQUI, SEM CORTES
 
-No IDE, abra `src/main/resources/application.properties` e altere a linha:
+A alteração tem que ser em **código** (o enunciado desconta 20 pontos se for só no
+README). No IDE, abra
+`src/main/java/org/fiap/challenge_clyvo/controller/PetController.java` e altere a
+linha 29:
 
-```properties
-springdoc.info.version=v4.0.0 - Sprint 4
+```java
+@Tag(name = "Pets", description = "Cadastro de pets")
 ```
 
 para
 
-```properties
-springdoc.info.version=v4.1.0 - Video Sprint 4
+```java
+@Tag(name = "Pets", description = "Cadastro de pets - alterado ao vivo na Sprint 4")
 ```
 
 No terminal da IDE:
 
 ```bash
-git add src/main/resources/application.properties
-git commit -m "Atualiza versao da API para o video da Sprint 4"
-git push origin main
+git add src/main/java/org/fiap/challenge_clyvo/controller/PetController.java
+git commit -m "Altera descricao do cadastro de pets para o video da Sprint 4"
+git push origin master
 ```
 
-> *"Mudei a versão que aparece no topo do Swagger. Commit e push na main."*
+> *"Mudei a descrição do grupo Pets no controller, que aparece no Swagger. Commit e
+> push na master."*
 
 ## Cena 4 — Disparo automático e execução do CI/CD (~4-6 min)
 
@@ -116,8 +120,9 @@ com a mensagem do seu commit). **Não clique em Run manual.**
 
 ## Cena 6 — Alteração no ar + CRUD com SELECT no banco (~4-5 min)
 
-1. Atualize o **Swagger publicado**: o topo mostra **v4.1.0 - Video Sprint 4**
-   (prova de que o deploy automático funcionou).
+1. Atualize o **Swagger publicado**: o grupo **Pets** agora mostra a descrição
+   **"Cadastro de pets - alterado ao vivo na Sprint 4"** (prova de que o deploy
+   automático funcionou com a alteração no código).
 2. Faça o login (`POST /api/v1/auth/login`) e o **Authorize**.
 3. CRUD, sempre com o `SELECT` no terminal MySQL logo depois:
 
@@ -156,6 +161,6 @@ Update:
 - [ ] Mostrou e explicou cada etapa do Build e do Deploy
 - [ ] Mostrou os testes (aba Tests) e o artefato `drop`
 - [ ] Mostrou o Web App atualizado no Portal
-- [ ] Mostrou a versão nova no Swagger publicado
+- [ ] Mostrou a descrição nova do grupo Pets no Swagger publicado
 - [ ] CRUD completo com SELECT depois de cada operação
 - [ ] YouTube "Não listado"; link colado no README e no PDF

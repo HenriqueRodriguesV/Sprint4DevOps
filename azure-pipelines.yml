@@ -2,19 +2,22 @@
 # Pipeline CI/CD - Olli Pet API - Sprint 4 (DevOps Tools & Cloud Computing)
 # =============================================================================
 #
-#   push na main  ->  CI (Build): mvn clean package = compila + testes JUnit
+#   push na master ->  CI (Build): mvn clean package = compila + testes JUnit
 #                                 + publica resultados dos testes
 #                                 + publica o artefato (.jar)
 #                 ->  CD (Deploy): dispara sozinho quando o artefato existe,
 #                                  aplica as App Settings do banco e faz o
 #                                  deploy do .jar no Azure Web App (Linux, Java 21)
 #
-# Nada e manual: o unico gatilho e o push na branch main.
+# Nada e manual: o unico gatilho e o push na branch master.
 # =============================================================================
 
+# Regra II: o CI dispara a cada alteracao na branch master (main incluida para
+# o caso de o repositorio usar main como branch padrao).
 trigger:
   branches:
     include:
+      - master
       - main
 
 pr: none

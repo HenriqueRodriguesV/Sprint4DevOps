@@ -14,7 +14,7 @@ cada print ausente aparece como uma caixa vermelha com o nome do arquivo.
 
 | Arquivo | O que mostrar |
 |---|---|
-| `01-devops-projeto.png` | Project Settings > Overview do projeto **Sprint 4 - Azure DevOps** (privado, Git, Scrum) |
+| `01-devops-projeto.png` | Project Settings > Overview do projeto **Sprint 4 – Azure DevOps** (privado, Git, Scrum) |
 | `02-devops-professor.png` | Project Settings > Permissions/Users com o professor convidado |
 | `03-devops-boards.png` | Azure Boards com os work items |
 | `04-devops-variable-group.png` | Pipelines > Library > `ollipet-cloud` com as 3 variáveis com cadeado |

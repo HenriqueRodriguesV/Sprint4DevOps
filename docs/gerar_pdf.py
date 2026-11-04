@@ -56,16 +56,16 @@ VIDEO = ""  # cole aqui o link do YouTube (nao listado) e gere o PDF de novo
 # Com "--pendencias", prints ainda nao salvos aparecem como caixas vermelhas;
 # sem a opcao (padrao), o PDF sai limpo, so com o que ja existe.
 MOSTRAR_PENDENCIAS = "--pendencias" in sys.argv
-PROJETO_DEVOPS = "dev.azure.com/ollipetnoite - Sprint 4 - Azure DevOps (privado, Git, Scrum)"
+PROJETO_DEVOPS = "dev.azure.com/ollipetnoite - Sprint 4 – Azure DevOps (privado, Git, Scrum)"
 
 # Arquivo esperado em docs/prints/ -> legenda
 PRINTS = {
-    "01-devops-projeto.png": "Projeto 'Sprint 4 - Azure DevOps' (Project Settings > Overview: privado, Git, Scrum).",
+    "01-devops-projeto.png": "Projeto 'Sprint 4 – Azure DevOps' (Project Settings > Overview: privado, Git, Scrum).",
     "02-devops-professor.png": "Professor convidado no projeto (Project Settings > Permissions / Users).",
     "03-devops-boards.png": "Azure Boards com os work items da sprint.",
     "04-devops-variable-group.png": "Variable Group 'ollipet-cloud' com as variaveis do banco marcadas como secret (cadeado).",
     "05-devops-service-connection.png": "Service Connection 'sc-ollipet-azure' (Azure Resource Manager).",
-    "06-pipeline-disparo.png": "Run disparado automaticamente pelo push na main (trigger: 'Individual CI').",
+    "06-pipeline-disparo.png": "Run disparado automaticamente pelo push na master (trigger: 'Individual CI').",
     "07-pipeline-build.png": "Stage 'CI - Build, testes e artefato' concluido, com os steps do Maven.",
     "08-pipeline-testes.png": "Aba 'Tests' do run com os testes JUnit aprovados.",
     "09-pipeline-artefato.png": "Artefato 'drop' publicado, com o .jar da API.",
@@ -243,8 +243,8 @@ def montar():
     # 2 ---------------------------------------------------------------------
     s.append(p("2. Como cada requisito foi atendido", h1))
     for t in [
-        "<b>Projeto no Azure DevOps</b> \"Sprint 4 - Azure DevOps\": privado, Git, processo Scrum, professor convidado — seção 5.",
-        "<b>Pipeline de CI</b> disparada a cada push na <font name='%s'>main</font>: build com Maven, testes automatizados JUnit publicados e artefato .jar publicado — seção 6." % FM,
+        "<b>Projeto no Azure DevOps</b> \"Sprint 4 – Azure DevOps\": privado, Git, processo Scrum, professor convidado — seção 5.",
+        "<b>Pipeline de CI</b> disparada a cada push na <font name='%s'>master</font>: build com Maven, testes automatizados JUnit publicados e artefato .jar publicado — seção 6." % FM,
         "<b>Pipeline de CD</b> disparada automaticamente após o artefato (dependsOn: Build), com deploy no Azure Web App — seção 6.",
         "<b>Credenciais protegidas</b>: usuário, senha e URL do banco em Variable Group com variáveis secret, nunca no código — seção 5.",
         "<b>Banco de dados em nuvem</b> (não H2): Azure Database for MySQL Flexible Server — seção 4.",
@@ -260,9 +260,9 @@ def montar():
     # 3 ---------------------------------------------------------------------
     s.append(p("3. Arquitetura e fluxo CI/CD", h1))
     s.append(imagem(DIAGRAMA, altura_max=13 * cm))
-    s.append(p("Fluxo: push na main → CI (Maven: build + testes) → artefato .jar → CD automático → Azure Web App → MySQL em nuvem.", legenda))
-    for t in ["<b>1.</b> O desenvolvedor faz <i>git push</i> na branch main do GitHub.",
-              "<b>2.</b> O push dispara a pipeline no Azure DevOps (trigger em main).",
+    s.append(p("Fluxo: push na master → CI (Maven: build + testes) → artefato .jar → CD automático → Azure Web App → MySQL em nuvem.", legenda))
+    for t in ["<b>1.</b> O desenvolvedor faz <i>git push</i> na branch master do GitHub.",
+              "<b>2.</b> O push dispara a pipeline no Azure DevOps (trigger em master).",
               "<b>3.</b> CI: <i>mvn clean package</i> compila e roda os testes JUnit; os resultados vão para a aba Tests.",
               "<b>4.</b> O .jar é publicado como artefato <i>drop</i>.",
               "<b>5.</b> CD: o stage Deploy começa sozinho quando o artefato existe.",
@@ -273,7 +273,7 @@ def montar():
     s.append(tabela([
         ("Componente", "Nome do recurso", "Tipo", "Descrição funcional", "Tecnologia"),
         ("Repositório", "Sprint4DevOps", "Repositório Git", "Código, pipeline e scripts", "GitHub"),
-        ("Projeto DevOps", "Sprint 4 - Azure DevOps", "Projeto privado (Git, Scrum)", "Boards, Pipelines, Library", "Azure DevOps"),
+        ("Projeto DevOps", "Sprint 4 – Azure DevOps", "Projeto privado (Git, Scrum)", "Boards, Pipelines, Library", "Azure DevOps"),
         ("Pipeline", "azure-pipelines.yml", "YAML multi-stage", "CI (build/testes/artefato) e CD (deploy)", "Azure Pipelines"),
         ("Variable Group", "ollipet-cloud", "Library (secret)", "URL, usuário e senha do banco", "Azure Pipelines"),
         ("Service Connection", "sc-ollipet-azure", "Azure Resource Manager", "Permite à pipeline publicar na Azure", "Azure DevOps"),
@@ -357,13 +357,29 @@ Started ChallengeClyvoApplication in 7.706 seconds
 
     # 5 ---------------------------------------------------------------------
     s.append(p("5. Projeto no Azure DevOps", h1))
-    s.append(p("Projeto <b>Sprint 4 - Azure DevOps</b> na organização <b>ollipetnoite</b>, privado, com controle "
+    s.append(p("Projeto <b>Sprint 4 – Azure DevOps</b> na organização <b>ollipetnoite</b>, privado, com controle "
                "de versão Git e processo Scrum. O professor <b>Felipe Oliveira</b> (pf2128@fiap.com.br) foi "
                "convidado como <b>Contributor</b> do projeto, com nível de acesso <b>Basic</b>. URL, usuário e "
                "senha do banco ficam no Variable Group <b>ollipet-cloud</b> (Pipelines → Library), marcados como "
                "secret: a pipeline os injeta no Web App como App Settings no deploy, e eles não aparecem no "
                "código, no YAML nem nos logs. A Service Connection <b>sc-ollipet-azure</b> usa Workload Identity "
                "Federation (sem senha armazenada) e só tem permissão de Contributor no Resource Group do projeto."))
+    s.append(p("Configuração do projeto (item 4 do enunciado)", h2))
+    s.append(tabela([
+        ("Campo", "Valor"),
+        ("Project Name", "Sprint 4 – Azure DevOps"),
+        ("Description", "Projeto para entrega da Sprint 4 do professor Felipe Cavalcante Vilella de Oliveira<br/>"
+                        "Integrantes do grupo:<br/>"
+                        "RM563112 - Andre Rosa Colombo - 2TDSA<br/>"
+                        "RM566242 - Gabriely Bonfim Silva - 2TDSA<br/>"
+                        "RM562917 - Henrique Rodrigues Vespasiano - 2TDSA<br/>"
+                        "RM566299 - Mirelly Sousa Alves - 2TDSA<br/>"
+                        "RM562218 - Ruan Luca Feliciano - 2TDSA"),
+        ("Visibility", "Private"),
+        ("Version control", "Git"),
+        ("Work item process", "Scrum"),
+    ], [LARGURA * 0.28, LARGURA * 0.72]))
+    s.append(Spacer(1, 8))
     s += texto_evidencia("devops-config.txt")
     s += [evidencia("01-devops-projeto.png"), evidencia("02-devops-professor.png"), evidencia("03-devops-boards.png"),
           evidencia("04-devops-variable-group.png"), evidencia("05-devops-service-connection.png")]
@@ -374,7 +390,7 @@ Started ChallengeClyvoApplication in 7.706 seconds
     s.append(bloco_codigo("""
 trigger:
   branches:
-    include: [ main ]          # todo push na main dispara a pipeline
+    include: [ master, main ]  # todo push na master dispara a pipeline
 
 stages:
   - stage: Build               # CI
@@ -397,7 +413,7 @@ stages:
 """))
     s.append(p("Arquivo completo: <font name='%s'>azure-pipelines.yml</font> na raiz do repositório." % FM, legenda))
     s.append(p("Execução disparada pelo push (motivo individualCI)", h2))
-    s.append(p("O run abaixo nasceu sozinho de um <i>git push</i> na main: o CI compilou, rodou e publicou os 30 "
+    s.append(p("O run abaixo nasceu sozinho de um <i>git push</i>: o CI compilou, rodou e publicou os 30 "
                "testes, publicou o artefato <i>drop</i>, e o CD começou automaticamente em seguida e publicou o .jar "
                "no Web App."))
     s += texto_evidencia("pipeline-run.txt")
