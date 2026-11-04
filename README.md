@@ -11,7 +11,7 @@ Olli Pet. Nesta sprint a API passou a ser compilada, testada e publicada
 |---|---|
 | **Repositório** | https://github.com/HenriqueRodriguesV/Sprint4DevOps |
 | **API publicada (Swagger)** | https://ollipet-api-rm562917.azurewebsites.net/swagger-ui.html |
-| **Vídeo da Sprint 4** | _adicionar o link do YouTube (não listado)_ |
+| **Vídeo da Sprint 4** | https://youtu.be/Db4gttBO9Gw |
 | **Projeto no Azure DevOps** | https://dev.azure.com/ollipetnoite/Sprint%204%20%E2%80%93%20Azure%20DevOps |
 | **PDF de entrega** | [`docs/entrega/Entrega-Sprint4-DevOps-2TDSA.pdf`](docs/entrega/Entrega-Sprint4-DevOps-2TDSA.pdf) (nomes, RMs, turma e links) |
 | **Documentação técnica (PDF)** | [`docs/Sprint4-DevOps-OlliPet.pdf`](docs/Sprint4-DevOps-OlliPet.pdf) (evidências detalhadas) |
@@ -47,7 +47,7 @@ Olli Pet. Nesta sprint a API passou a ser compilada, testada e publicada
 | V. Artefato publicado no Azure DevOps | `PublishPipelineArtifact@1` → artefato `drop` |
 | VI. Testes no CI | `Maven@4` com 30 testes JUnit publicados na aba Tests |
 | VII. Deploy em Azure Web App | `AzureWebApp@1` → `ollipet-api-rm562917` |
-| 8. Vídeo | Roteiro em [`docs/azure/ROTEIRO_VIDEO.md`](docs/azure/ROTEIRO_VIDEO.md) |
+| 8. Vídeo demonstrativo | https://youtu.be/Db4gttBO9Gw |
 | PDF de entrega | [`docs/entrega/Entrega-Sprint4-DevOps-2TDSA.pdf`](docs/entrega/Entrega-Sprint4-DevOps-2TDSA.pdf) |
 
 ---
@@ -88,7 +88,6 @@ o percentual real de doses confirmadas em vez de depender do relato do tutor.
 7. No boot, a API conecta no MySQL em nuvem via JDBC/SSL e o Flyway aplica as
    migrations `V1`..`V8`.
 
-O fonte do diagrama está em [`docs/azure/arquitetura-cicd.dot`](docs/azure/arquitetura-cicd.dot).
 
 ### Detalhamento dos componentes
 
@@ -352,9 +351,8 @@ script_bd.sql                       DDL comentado (MySQL 8), igual às migration
 docs/azure/provisionar.sh           cria os recursos na Azure via CLI
 docs/azure/limpar.sh                remove os recursos
 docs/azure/arquitetura-cicd.png     diagrama de arquitetura + fluxo CI/CD
-docs/azure/ROTEIRO_VIDEO.md         roteiro de gravação do vídeo
-docs/Sprint4-DevOps-OlliPet.pdf     documentação da entrega
-docs/gerar_pdf.py                   gera o PDF (usa os prints de docs/prints/)
+docs/entrega/Entrega-Sprint4-DevOps-2TDSA.pdf   PDF de entrega (nomes, RMs, turma e links)
+docs/Sprint4-DevOps-OlliPet.pdf     documentação técnica com as evidências
 src/main/java/...                   código da API (controller, service, model...)
 src/main/resources/db/migration     migrations Flyway V1..V8
 src/test/java/...                   testes JUnit executados na pipeline
