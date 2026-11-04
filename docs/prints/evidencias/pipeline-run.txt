@@ -1,10 +1,9 @@
-$ az pipelines runs list (ultimos runs)
-Run         Motivo        Resultado    Branch
-----------  ------------  -----------  ---------------
-20261104.2  individualCI  succeeded    refs/heads/main
-20261104.1  manual        succeeded    refs/heads/main
+$ az pipelines runs show --id 4
+Run         Motivo        Resultado    Branch           Commit   Autor
+----------  ------------  -----------  ---------------  -------  -----
+20261104.4  individualCI  succeeded    refs/heads/main  911a52a  Rique
 
-Etapas do run mais recente (timeline):
+Etapas do run (timeline):
 STAGE CI - Build, testes e artefato            succeeded
    Initialize job                                             succeeded
    Checkout HenriqueRodriguesV/Sprint4DevOps@main to s        succeeded
@@ -20,7 +19,7 @@ STAGE CD - Deploy no Azure Web App             succeeded
    Finalize Job                                               succeeded
 
 Testes publicados no run:
-   Testes automatizados - Olli Pet API: total=30 aprovados=30 falhas=0
+   Testes automatizados - Olli Pet API: total=30 aprovados=30
 
 Artefatos publicados:
    drop (70610 KB)
